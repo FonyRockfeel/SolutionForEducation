@@ -1,0 +1,27 @@
+﻿@model GameStore.WebUI.Models.GuestResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+</head>
+<body>
+<div>
+    <h1>Спасибо @Model.Name</h1>
+    @if (Model.WillAttend == true)
+    {
+        @:Здорово что выпридете, напитки уже в холодильнике;)
+    }
+    else
+    {
+        @:Жаль что не придете но спасибо что дали знать.
+    }
+</div>
+</body>
+</html>
