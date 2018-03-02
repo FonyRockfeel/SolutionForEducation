@@ -23,7 +23,9 @@ namespace GameStore.WebUI.Controllers
         [HttpPost]
         public ViewResult RsvpForm(GuestResponse guest)
         {
-            return View("Thanks", guest);
+            if (ModelState.IsValid)
+                return View("Thanks", guest);
+            return View();
         }
     }
 }
