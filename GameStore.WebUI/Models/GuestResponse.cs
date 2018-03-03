@@ -20,5 +20,6 @@ namespace GameStore.WebUI.Models
 
         [Required(ErrorMessage = "Пожалуйста, укажите, примите ли участие в вечеринке")]
         public bool? WillAttend { get; set; }
+        //afdf
     }
 }
