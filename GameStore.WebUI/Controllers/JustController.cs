@@ -12,7 +12,16 @@ namespace GameStore.WebUI.Controllers
         // GET: Just
         public ActionResult Index()
         {
-            return View();
+            var t = new List<string>();
+            t.Add("3543");
+            t.Add("sdg5wgw");
+            t.Add("sdg343wgw");
+            t.Add("sdgwgw");
+            t.Add("sdgwerygw");
+            t.Add("sdgwerygw");
+            t.Add("sdgwehwewgw");
+            t.Add("sdgwg3646346346w");
+            return View(t);
         }
         [HttpGet]
         public ViewResult RSVPForm()

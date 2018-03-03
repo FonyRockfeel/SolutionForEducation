@@ -2,13 +2,24 @@
 @{
     ViewBag.Title = "Indexxxxxxx";
 }
-
+@model List<string>
 <h2>Ind</h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css"/>
+</head>
 
 <body>
 <div>
     @ViewBag.Lost
     <p>jefjvkeiveivie4ivb43i</p>
     @Html.ActionLink("Форма регистрации", "RSVPForm")
+    <p>
+        @Html.Label("Val")
+    </p>
+    
+    @foreach (var t in Model)
+    {
+        <h2 class="new1">Item: @t</h2>
+    }
 </div>
 </body>
