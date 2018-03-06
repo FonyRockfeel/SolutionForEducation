@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using GameStore.WebUI.Models;
@@ -9,6 +10,7 @@ namespace GameStore.WebUI.Controllers
 {
     public class JustController : Controller
     {
+        private static int cycles;
         // GET: Just
         public ActionResult Index()
         {
@@ -21,6 +23,8 @@ namespace GameStore.WebUI.Controllers
             t.Add("sdgwerygw");
             t.Add("sdgwehwewgw");
             t.Add("sdgwg3646346346w");
+
+            ViewBag.Cycles = cycles;
             return View(t);
         }
         [HttpGet]
@@ -34,6 +38,38 @@ namespace GameStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
                 return View("Thanks", guest);
+            return View();
+        }
+        [HttpGet]
+        public string Square(int a, int h)
+        {
+            double s = a * h / 2.0;
+            return "<h2>Площадь треугольника с основанием " + a +
+                   " и высотой " + h + " равна " + s + "</h2>";
+        }
+        public string ContextData()
+        {
+            HttpContext.Response.Write("<h1>Hello World</h1>");
+
+            string user_agent = HttpContext.Request.UserAgent;
+            string url = HttpContext.Request.RawUrl;
+            string ip = HttpContext.Request.UserHostAddress;
+            string referrer = HttpContext.Request.UrlReferrer == null ? "" : HttpContext.Request.UrlReferrer.AbsoluteUri;
+            return "<p>User-Agent: " + user_agent + "</p><p>Url запроса: " + url +
+                   "</p><p>Реферер: " + referrer + "</p><p>IP-адрес: " + ip + "</p>";
+        }
+
+        public ActionResult StartMonitor()
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    cycles++;
+                    Task.Delay(1000).Wait();
+                }
+            });
+            ViewBag.Mess = "Started";
             return View();
         }
     }

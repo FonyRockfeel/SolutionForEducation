@@ -13,5 +13,6 @@ namespace GameStore.WebUI.Controllers
         {
             return View();
         }
+
     }
 }
