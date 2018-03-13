@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using GameStore.WebUI.Models;
 
 namespace GameStore.WebUI.Controllers
 {
-    public class JustController : Controller
+    public class JustController : Controller, IRegisteredObject
     {
         private static int cycles;
+        private object _lock = new object();
         // GET: Just
         public ActionResult Index()
         {
@@ -61,16 +63,30 @@ namespace GameStore.WebUI.Controllers
 
         public ActionResult StartMonitor()
         {
-            Task.Run(() =>
+            HostingEnvironment.RegisterObject(this);
+            var task = Task.Run(() =>
             {
                 while (true)
                 {
-                    cycles++;
+                    lock (_lock)
+                    {
+                         cycles++;
+                    }
                     Task.Delay(1000).Wait();
                 }
             });
+            
             ViewBag.Mess = "Started";
             return View();
+        }
+
+        public void Stop(bool immediate)
+        {
+            lock (_lock)
+            {
+                cycles = 9999999;
+            }
+            HostingEnvironment.UnregisterObject(this);
         }
     }
 }
